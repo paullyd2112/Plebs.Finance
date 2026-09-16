@@ -134,7 +134,9 @@ python scheduler.py
 | `VAPID_PUBLIC_KEY` | No | Browser push notifications |
 | `VAPID_PRIVATE_KEY` | No | Browser push notifications |
 | `SENTRY_DSN` | No | Error monitoring |
-| `ALERT_EMAIL` | No | Email address for system alerts |
+| `ALERT_EMAIL` | No | Where uptime/failure alerts go. Blank disables them. |
+| `EMAIL_FROM_*` | No | Sender addresses (`_WELCOME`, `_BRIEFING`, `_BRIEF`, `_NEWSLETTER`, `_ALERTS`, `_SIGNALS`). Must be on a domain you control in Resend. |
+| `EFD_CONTACT_EMAIL` | No | Contact address sent in the congressional scraper's User-Agent |
 
 ### API Costs
 
