@@ -15,7 +15,7 @@ from supabase_client import supabase
 
 resend.api_key = os.environ.get("RESEND_API_KEY", "") or os.environ.get("RESEND_API_KEY_", "")
 
-FROM_ADDRESS  = "Plebs Morning Brief <brief@plebs.finance>"
+FROM_ADDRESS  = os.environ.get("EMAIL_FROM_BRIEF", "Plebs Morning Brief <brief@plebs.finance>")
 SUBJECT_PREFIX = "☀️ Plebs Brief"
 
 

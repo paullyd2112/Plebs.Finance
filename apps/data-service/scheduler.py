@@ -229,7 +229,7 @@ UPTIME_ALERT_THRESHOLD = 2  # alert after 2 consecutive failures (10 min)
 UPTIME_URLS = [
     os.environ.get("NEXT_PUBLIC_APP_URL", "https://plebs.finance"),
 ]
-ALERT_EMAIL = os.environ.get("ALERT_EMAIL", "paulsolomonaqua@gmail.com")
+ALERT_EMAIL = os.environ.get("ALERT_EMAIL", "")
 
 
 def job_uptime_check():
@@ -254,7 +254,7 @@ def job_uptime_check():
     if not down_urls:
         if _uptime_fail_count > 0:
             logger.info("Uptime recovered after {} consecutive failures", _uptime_fail_count)
-            if _uptime_fail_count >= UPTIME_ALERT_THRESHOLD and _resend.api_key:
+            if _uptime_fail_count >= UPTIME_ALERT_THRESHOLD and _resend.api_key and ALERT_EMAIL:
                 try:
                     _resend.Emails.send({
                         "from": "Plebs Uptime <alerts@plebs.finance>",
@@ -270,7 +270,7 @@ def job_uptime_check():
     _uptime_fail_count += 1
     logger.warning("Uptime check failed ({}/{}): {}", _uptime_fail_count, UPTIME_ALERT_THRESHOLD, down_urls)
 
-    if _uptime_fail_count == UPTIME_ALERT_THRESHOLD and _resend.api_key:
+    if _uptime_fail_count == UPTIME_ALERT_THRESHOLD and _resend.api_key and ALERT_EMAIL:
         try:
             _resend.Emails.send({
                 "from": "Plebs Uptime <alerts@plebs.finance>",
@@ -1925,8 +1925,6 @@ def pipeline_check():
     return jsonify(checks)
 
 
-# ─── Entry point ──────────────────────────────────────────────────────────
-if __name__ == "__main__":
 # ─── Challenge API routes ────────────────────────────────────────────────────
 
 @app.route("/api/v1/challenges/templates")
@@ -2074,6 +2072,8 @@ def challenge_history():
 # ─── End challenge routes ────────────────────────────────────────────────────
 
 
+# ─── Entry point ──────────────────────────────────────────────────────────
+if __name__ == "__main__":
     logger.info("Starting Plebs data service")
     if os.environ.get("ENABLE_SCHEDULER", "false").lower() == "true":
         scheduler.start()

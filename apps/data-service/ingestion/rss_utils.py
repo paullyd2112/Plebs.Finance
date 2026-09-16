@@ -188,7 +188,9 @@ def check_feed_health() -> str:
         import resend
         resend.api_key = os.environ.get("RESEND_API_KEY", "") or os.environ.get("RESEND_API_KEY_", "")
         if resend.api_key:
-            alert_email = os.environ.get("ALERT_EMAIL", "paulsolomonaqua@gmail.com")
+            alert_email = os.environ.get("ALERT_EMAIL", "")
+            if not alert_email:
+                return
             resend.Emails.send({
                 "from": "Plebs Alerts <alerts@plebs.finance>",
                 "to": [alert_email],

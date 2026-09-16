@@ -494,7 +494,9 @@ def _alert_generation_failure(reason: str) -> None:
         resend.api_key = os.environ.get("RESEND_API_KEY", "") or os.environ.get("RESEND_API_KEY_", "")
         if not resend.api_key:
             return
-        alert_email = os.environ.get("ALERT_EMAIL", "paulsolomonaqua@gmail.com")
+        alert_email = os.environ.get("ALERT_EMAIL", "")
+        if not alert_email:
+            return
         resend.Emails.send({
             "from": "Plebs Alerts <alerts@plebs.finance>",
             "to": [alert_email],

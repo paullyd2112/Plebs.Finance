@@ -18,7 +18,7 @@ from loguru import logger
 from supabase_client import supabase
 
 resend.api_key = os.environ.get("RESEND_API_KEY", "") or os.environ.get("RESEND_API_KEY_", "")
-FROM_ADDRESS   = "Pleby from Plebs <daily@plebs.finance>"
+FROM_ADDRESS   = os.environ.get("EMAIL_FROM_BRIEFING", "Pleby from Plebs <daily@plebs.finance>")
 APP_URL        = os.environ.get("NEXT_PUBLIC_APP_URL", "https://plebs.finance")
 
 _anthropic = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))

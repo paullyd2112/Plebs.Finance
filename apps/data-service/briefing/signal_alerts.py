@@ -23,7 +23,7 @@ from supabase_client import supabase
 
 resend.api_key = os.environ.get("RESEND_API_KEY", "") or os.environ.get("RESEND_API_KEY_", "")
 
-FROM_ADDRESS = "Plebs Signals <signals@plebs.finance>"
+FROM_ADDRESS = os.environ.get("EMAIL_FROM_SIGNALS", "Plebs Signals <signals@plebs.finance>")
 APP_URL = os.environ.get("NEXT_PUBLIC_APP_URL", "https://plebs.finance")
 
 MIN_CONFIDENCE = 70

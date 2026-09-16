@@ -43,7 +43,11 @@ EFD_PTR_TYPE     = "[11]"   # "Periodic Transaction Report" — the STOCK Act tr
 EFD_PDF_PREFIX   = "/search/view/paper/"  # paper-filed reports are scanned PDFs — skipped, not OCR'd
 EFD_BATCH_SIZE   = 100
 EFD_MAX_RUNTIME_S = 120  # wall-clock budget so a slow/hanging report page can't stall the whole run
-EFD_USER_AGENT   = "PlebsFinance/1.0 (congressional trade disclosure aggregator; contact: paulsolomonaqua@gmail.com)"
+# efdsearch.senate.gov expects a contact address in the UA string — set EFD_CONTACT_EMAIL to yours.
+EFD_USER_AGENT   = (
+    "PlebsFinance/1.0 (congressional trade disclosure aggregator; "
+    f"contact: {os.environ.get('EFD_CONTACT_EMAIL', 'opensource@example.com')})"
+)
 
 
 def _fmp_key() -> str:

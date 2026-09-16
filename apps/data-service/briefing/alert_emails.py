@@ -18,7 +18,7 @@ from supabase_client import supabase
 
 resend.api_key = os.environ.get("RESEND_API_KEY", "") or os.environ.get("RESEND_API_KEY_", "")
 
-FROM_ADDRESS = "Plebs Alerts <alerts@plebs.finance>"
+FROM_ADDRESS = os.environ.get("EMAIL_FROM_ALERTS", "Plebs Alerts <alerts@plebs.finance>")
 APP_URL      = os.environ.get("NEXT_PUBLIC_APP_URL", "https://plebs.finance")
 
 
