@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { requireUser } from "@/lib/user";
-import type { Tier } from "@/lib/tier";
 
 const Body = z.object({
   asset_type: z.enum(["stock", "crypto"]),
@@ -21,22 +20,6 @@ export async function POST(req: Request) {
   }
 
   const supabase = createClient();
-
-  // Get tier + current count in one query
-  const [profileRes, countRes] = await Promise.all([
-    supabase.from("profiles").select("tier").eq("id", user.id).single(),
-    supabase.from("watchlist").select("id", { count: "exact", head: true }).eq("user_id", user.id),
-  ]);
-
-  const count = countRes.count ?? 0;
-  const limit = Infinity;
-
-  if (count >= limit) {
-    return NextResponse.json(
-      { error: `Watchlist limit reached` },
-      { status: 403 },
-    );
-  }
 
   const { data, error } = await supabase
     .from("watchlist")

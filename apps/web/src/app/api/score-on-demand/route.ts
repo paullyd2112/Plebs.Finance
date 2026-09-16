@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     const resp = await fetch(`${DATA_SERVICE_URL}/score-asset`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ asset_type, identifier: upperId, subscription: tier }),
+      body: JSON.stringify({ asset_type, identifier: upperId }),
     });
 
     const result = await resp.json();

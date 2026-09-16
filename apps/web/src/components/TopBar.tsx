@@ -1,12 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import type { User } from "@supabase/supabase-js";
 import { Settings, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import SearchBar from "@/components/SearchBar";
 
-export default function TopBar({ user }: { user: User }) {
+export default function TopBar() {
   const router = useRouter();
   const supabase = createClient();
 

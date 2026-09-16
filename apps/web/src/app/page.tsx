@@ -434,15 +434,15 @@ function Ethos() {
                     </p>
                   </div>
                   <div>
-                    <div className="text-white font-medium text-sm">Priced for retail</div>
+                    <div className="text-white font-medium text-sm">Free and open source</div>
                     <p className="text-muted-foreground text-xs mt-1 leading-relaxed">
-                      Institutional-grade analysis shouldn&apos;t cost institutional prices. Free tier included.
+                      Institutional-grade analysis shouldn&apos;t cost institutional prices. Every feature, free.
                     </p>
                   </div>
                   <div>
                     <div className="text-white font-medium text-sm">Built in public</div>
                     <p className="text-muted-foreground text-xs mt-1 leading-relaxed">
-                      We ship features in the open. The accuracy page isn&apos;t gated. Even free users see the track record.
+                      We ship features in the open, and the source code is on GitHub. The accuracy page isn&apos;t gated.
                     </p>
                   </div>
                 </div>
@@ -507,7 +507,7 @@ function Features() {
           </h2>
           <p className="text-secondary-foreground mt-4 leading-relaxed">
             Stop juggling six subscriptions. Signals, prediction markets, filings,
-            and briefings, all in one place. Priced for retail.
+            and briefings, all in one place. All free.
           </p>
         </Reveal>
 
@@ -781,12 +781,7 @@ function Footer() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-/**
- * Organization + WebSite + SoftwareApplication schema.
- *
- * Offers are derived from the PLANS array rendered on this page, so the prices
- * in search results cannot drift out of sync with the prices on screen.
- */
+/** Organization + WebSite + SoftwareApplication schema. */
 function homeJsonLd() {
   const organization = {
     "@type": "Organization",
@@ -814,14 +809,13 @@ function homeJsonLd() {
     operatingSystem: "Web",
     description: HOME_DESCRIPTION,
     publisher: { "@id": abs("/#organization") },
-    offers: PLANS.map((plan) => ({
+    offers: {
       "@type": "Offer",
-      name: plan.name,
-      price: plan.price.replace(/[^0-9.]/g, ""),
+      price: "0",
       priceCurrency: "USD",
-      category: plan.period === "/mo" ? "Subscription" : "Free",
-      url: abs(plan.href),
-    })),
+      category: "Free",
+      url: abs("/signup"),
+    },
   };
 
   return {
